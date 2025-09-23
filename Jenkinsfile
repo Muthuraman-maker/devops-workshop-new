@@ -10,17 +10,22 @@ pipeline {
     stages {
           stage('Build') {
                 steps {
-                 sh 'mvn clean install'
+                 sh 'mvn clean deploy'
                 }
           }
           stage('Test') {
                 steps {
-                 sh 'mvn test'
+                 echo 'Testing..'
                 }
           }
           stage('Deploy') {
                 steps {
-                 sh 'mvn deploy'
+                 echo 'Deploying....'
+                }
+          }
+          stage('Done') {
+                steps {
+                 echo 'All done!'
                 }
           }
     }

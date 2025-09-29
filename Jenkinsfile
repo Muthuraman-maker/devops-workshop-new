@@ -8,16 +8,20 @@ pipeline {
         PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
    }
     stages {
-          stage('Build') {
-                steps {
-                 sh 'mvn clean deploy -Dmaven.test.skip=true'
-                }
-          }
-          stage('Test') {
-                steps {
-                 echo 'Testing..'
-                }
-          }
+          stage("build"){
+            steps {
+                 echo "----------- build started ----------"
+                sh 'mvn clean deploy -Dmaven.test.skip=true'
+                 echo "----------- build complted ----------"
+            }
+        }
+        stage("test"){
+            steps{
+                echo "----------- unit test started ----------"
+                sh 'mvn surefire-report:report'
+                 echo "----------- unit test Complted ----------"
+            }
+        }
           stage('SonarQube analysis') {
             environment {
                   scannerHome = tool 'muthu-sonar-scanner';

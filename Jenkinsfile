@@ -18,6 +18,17 @@ pipeline {
                  echo 'Testing..'
                 }
           }
+          stage('SonarQube analysis') {
+            environment {
+                  scannerHome = tool 'muthu-sonar-scanner';
+            }
+            steps{
+                  withSonarQubeEnv('muthu-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
+                  sh "${scannerHome}/bin/sonar-scanner"
+                  }
+            }
+           
+      }
           stage('Deploy') {
                 steps {
                  echo 'Deploying....'
@@ -27,6 +38,6 @@ pipeline {
                 steps {
                  echo 'All done!'
                 }
-          }
-    }
+          }    
+}
 }

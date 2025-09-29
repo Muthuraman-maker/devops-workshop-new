@@ -4,9 +4,6 @@ pipeline {
             label 'maven'
         }
    }
-   environment {
-        PATH = "/usr/bin/mvn/bin:$PATH"
-   }
     stages {
           stage('Build') {
                 steps {
